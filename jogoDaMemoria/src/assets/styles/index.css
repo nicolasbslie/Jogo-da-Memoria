@@ -13,6 +13,10 @@ body {
 button {
   padding: 10px 20px;
   cursor: pointer;
+  border: none;
+  border-radius: 15%;
+  background-color: rgb(207, 207, 21);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .game-board {
