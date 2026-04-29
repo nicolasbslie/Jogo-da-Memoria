@@ -10,7 +10,7 @@ let icons = [
   "https://upload.wikimedia.org/wikipedia/pt/a/aa/Bart_Simpson_200px.png",
   "https://upload.wikimedia.org/wikipedia/pt/6/67/Lisa_Simpson_personagem.png",
   "https://static.wikia.nocookie.net/omniversal-battlefield/images/2/27/MontgomeryBurns.png/revision/latest?cb=20190605233136",
-  "https://upload.wikimedia.org/wikipedia/pt/9/9d/Maggie_Simpson.png",
+  "https://upload.wikimedia.org/wikipedia/pt/9/9d/Maggie_Simpson.png"
 ];
 
 let cardsArray = [...icons, ...icons];
