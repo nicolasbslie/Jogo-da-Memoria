@@ -50,8 +50,3 @@ button {
 .front {
   background: #333;
 }
-
-.back {
-  background: #00aaff;
-  transform: rotateY(180deg);
-}
