@@ -3,6 +3,9 @@ body {
   text-align: center;
   background: #121212;
   color: white;
+  background-image: url(https://wallpapers.com/images/hd/serious-bart-simpson-vxgi1h86ifngos4h.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 .info {
