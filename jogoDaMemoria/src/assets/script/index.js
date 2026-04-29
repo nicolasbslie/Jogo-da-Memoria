@@ -3,7 +3,16 @@ const scoreEl = document.getElementById("score");
 const movesEl = document.getElementById("moves");
 const resetBtn = document.getElementById("reset");
 
-let icons = ["🍎","🍌","🍇","🍓","🍍","🥝"];
+// caminhos das imagens
+let icons = [
+  "https://upload.wikimedia.org/wikipedia/pt/0/02/Homer_Simpson_2006.png",
+  "https://upload.wikimedia.org/wikipedia/pt/0/0b/Marge_Simpson.png",
+  "https://upload.wikimedia.org/wikipedia/pt/a/aa/Bart_Simpson_200px.png",
+  "https://upload.wikimedia.org/wikipedia/pt/6/67/Lisa_Simpson_personagem.png",
+  "https://static.wikia.nocookie.net/omniversal-battlefield/images/2/27/MontgomeryBurns.png/revision/latest?cb=20190605233136",
+  "https://upload.wikimedia.org/wikipedia/pt/9/9d/Maggie_Simpson.png",
+];
+
 let cardsArray = [...icons, ...icons];
 
 let primeiraCarta = null;
@@ -26,7 +35,8 @@ function createBoard() {
     card.classList.add("card");
     card.dataset.icon = icon;
 
-    card.textContent = "?";
+    // carta virada pra baixo
+    card.innerHTML = "?";
 
     card.addEventListener("click", handleClick);
 
@@ -39,7 +49,8 @@ function handleClick() {
   if (this === primeiraCarta) return;
   if (this.classList.contains("correct")) return;
 
-  this.textContent = this.dataset.icon;
+  // mostra a imagem
+  this.innerHTML = `<img src="${this.dataset.icon}" alt="">`;
 
   if (!primeiraCarta) {
     primeiraCarta = this;
@@ -68,10 +79,9 @@ function checkMatch() {
     resetTurn();
   } else {
     setTimeout(() => {
-      primeiraCarta.textContent = "?";
-      segundadCarta.textContent = "?";
-
-      scoreEl.textContent = score;
+      // esconde de novo
+      primeiraCarta.innerHTML = "?";
+      segundadCarta.innerHTML = "?";
 
       resetTurn();
     }, 1000);
@@ -92,6 +102,5 @@ resetBtn.addEventListener("click", () => {
   movesEl.textContent = moves;
   createBoard();
 });
-
 
 createBoard();
