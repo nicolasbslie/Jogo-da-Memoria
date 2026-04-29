@@ -35,7 +35,7 @@ function createBoard() {
     card.dataset.icon = icon;
 
     // carta virada pra baixo
-    card.innerHTML = "?";
+    card.innerHTML = "";
 
     card.addEventListener("click", handleClick);
 
@@ -79,8 +79,8 @@ function checkMatch() {
   } else {
     setTimeout(() => {
       // esconde de novo
-      primeiraCarta.innerHTML = "?";
-      segundadCarta.innerHTML = "?";
+      primeiraCarta.innerHTML = "";
+      segundadCarta.innerHTML = "";
 
       resetTurn();
     }, 1000);
