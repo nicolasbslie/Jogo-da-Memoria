@@ -3,7 +3,6 @@ const scoreEl = document.getElementById("score");
 const movesEl = document.getElementById("moves");
 const resetBtn = document.getElementById("reset");
 
-// caminhos das imagens
 let icons = [
   "https://upload.wikimedia.org/wikipedia/pt/0/02/Homer_Simpson_2006.png",
   "https://upload.wikimedia.org/wikipedia/pt/0/0b/Marge_Simpson.png",
