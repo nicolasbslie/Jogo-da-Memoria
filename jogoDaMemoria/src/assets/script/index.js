@@ -1,8 +1,15 @@
-const board = document.getElementById("board");
-const scoreEl = document.getElementById("score");
-const movesEl = document.getElementById("moves");
-const resetBtn = document.getElementById("reset");
+// ==========================
+// PEGANDO ELEMENTOS DO HTML
+// ==========================
+const board = document.getElementById("board"); // área onde ficam as cartas
+const scoreEl = document.getElementById("score"); // mostra a pontuação
+const movesEl = document.getElementById("moves"); // mostra quantidade de jogadas
+const resetBtn = document.getElementById("reset"); // botão de resetar o jogo
 
+
+// ==========================
+// LISTA DE IMAGENS (ICONS)
+// ==========================
 let icons = [
   "https://upload.wikimedia.org/wikipedia/pt/0/02/Homer_Simpson_2006.png",
   "https://upload.wikimedia.org/wikipedia/pt/0/0b/Marge_Simpson.png",
@@ -12,73 +19,120 @@ let icons = [
   "https://upload.wikimedia.org/wikipedia/pt/9/9d/Maggie_Simpson.png"
 ];
 
+// DUPLICA AS IMAGENS PARA FORMAR OS PARES
 let cardsArray = [...icons, ...icons];
 
-let primeiraCarta = null;
-let segundadCarta = null;
-let lockBoard = false;
 
-let score = 0;
-let moves = 0;
+// ==========================
+// CONTROLE DO JOGO
+// ==========================
+let primeiraCarta = null; // guarda a primeira carta clicada
+let segundadCarta = null; // guarda a segunda carta
+let lockBoard = false; // trava o tabuleiro enquanto compara
 
+let score = 0; // pontuação (pares encontrados)
+let moves = 0; // número de jogadas
+
+
+// ==========================
+// FUNÇÃO: EMBARALHAR CARTAS
+// ==========================
 function shuffle(array) {
+  // ordena o array de forma aleatória
   return array.sort(() => Math.random() - 0.5);
 }
 
+
+// ==========================
+// FUNÇÃO: CRIAR TABULEIRO
+// ==========================
 function createBoard() {
-  board.innerHTML = "";
+  board.innerHTML = ""; // limpa o tabuleiro
+
+  // embaralha as cartas
   cardsArray = shuffle(cardsArray);
 
+  // percorre cada imagem
   cardsArray.forEach(icon => {
+
+    // cria uma carta (div)
     const card = document.createElement("div");
     card.classList.add("card");
+
+    // guarda o valor da imagem dentro da carta
     card.dataset.icon = icon;
 
-    // carta virada pra baixo
+    // carta começa virada (sem imagem)
     card.innerHTML = "";
 
+    // adiciona evento de clique
     card.addEventListener("click", handleClick);
 
+    // coloca a carta dentro do tabuleiro
     board.appendChild(card);
   });
 }
 
+
+// ==========================
+// FUNÇÃO: CLIQUE NA CARTA
+// ==========================
 function handleClick() {
+
+  // se o tabuleiro estiver travado, não faz nada
   if (lockBoard) return;
+
+  // impede clicar duas vezes na mesma carta
   if (this === primeiraCarta) return;
+
+  // impede clicar em carta já acertada
   if (this.classList.contains("correct")) return;
 
-  // mostra a imagem
+  // mostra a imagem da carta
   this.innerHTML = `<img src="${this.dataset.icon}" alt="">`;
 
+  // se ainda não existe primeira carta
   if (!primeiraCarta) {
-    primeiraCarta = this;
+    primeiraCarta = this; // salva como primeira
     return;
   }
 
+  // se já tem primeira, essa vira a segunda
   segundadCarta = this;
-  lockBoard = true;
+  lockBoard = true; // trava o jogo
 
+  // aumenta jogadas
   moves++;
   movesEl.textContent = moves;
 
+  // verifica se é par
   checkMatch();
 }
 
+
+// ==========================
+// FUNÇÃO: VERIFICAR PAR
+// ==========================
 function checkMatch() {
+
+  // compara as imagens das duas cartas
   let isMatch = primeiraCarta.dataset.icon === segundadCarta.dataset.icon;
 
   if (isMatch) {
+    // se acertou, marca como correto
     primeiraCarta.classList.add("correct");
     segundadCarta.classList.add("correct");
 
+    // aumenta pontuação
     score++;
     scoreEl.textContent = score;
 
+    // reseta turno
     resetTurn();
+
   } else {
+    // se errou, espera 1 segundo e vira de volta
     setTimeout(() => {
-      // esconde de novo
       primeiraCarta.innerHTML = "";
       segundadCarta.innerHTML = "";
 
@@ -87,19 +141,36 @@ function checkMatch() {
   }
 }
 
+
+// ==========================
+// FUNÇÃO: RESETAR TURNO
+// ==========================
 function resetTurn() {
   primeiraCarta = null;
   segundadCarta = null;
-  lockBoard = false;
+  lockBoard = false; // libera o jogo novamente
 }
 
-// botão reset
+
+// ==========================
+// BOTÃO RESET
+// ==========================
 resetBtn.addEventListener("click", () => {
+
+  // zera pontuação e jogadas
   score = 0;
   moves = 0;
+
+  // atualiza na tela
   scoreEl.textContent = score;
   movesEl.textContent = moves;
+
+  // recria o tabuleiro
   createBoard();
 });
 
+
+// ==========================
+// INICIAR O JOGO
+// ==========================
 createBoard();
