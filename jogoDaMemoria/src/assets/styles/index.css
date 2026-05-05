@@ -67,9 +67,6 @@ button {
   border: 2px solid lime;
 }
 
-.front {
-  background: #333;
-}
 
 .card:hover {
     transform: scale(1.1);
